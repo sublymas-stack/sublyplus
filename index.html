@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subly+ Marketplace - Catálogo Completo</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        nav ul li {
+            margin-left: 20px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .carrito {
+            background-color: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 50%;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .banner {
+            background-color: #3498db;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+            margin: 20px 0;
+        }
+        .categorias {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .categorias a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        .categorias a:hover {
+            color: #e74c3c;
+        }
+        .filtro {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .seccion {
+            margin: 40px 0;
+            padding: 0 20px;
+        }
+        .seccion-titulo {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            text-align: center;
+            position: relative;
+        }
+        .seccion-titulo::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background-color: #e74c3c;
+            margin: 10px auto;
+        }
+        .productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .producto {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .producto:hover {
+            transform: translateY(-5px);
+        }
+        .producto-imagen {
+            width: 100%;
+            height: 220px; /* Aumenté la altura para mostrar mejor el contenido */
+            object-fit: contain; /* Cambiado a contain para ver toda la información */
+            padding: 25px 15px; /* Aumenté el padding para que no estén tan cerca */
+            background-color: transparent;
+            display: block;
+            border-radius: 10px 10px 0 0;
+        }
+        .producto-info {
+            padding: 15px;
+        }
+        .producto-titulo {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        .producto-descripcion {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        .boton-comprar {
+            display: inline-block;
+            background-color: #2ecc71;
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        .boton-comprar:hover {
+            background-color: #27ae60;
+        }
+        .combos {
+            text-align: center;
+        }
+        .combo-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .combo-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 250px;
+            padding: 15px;
+            text-align: center;
+        }
+        .combo-imagen {
+            width: 100%;
+            max-width: 80px;
+            height: auto;
+            display: block;
+            margin: 0 auto 10px;
+        }
+        .combo-titulo {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #2c3e50;
+        }
+        .combo-fecha {
+            background-color: #f1c40f;
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin: 5px 0;
+        }
+        .carrito-modal {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            padding: 20px;
+            width: 300px;
+            z-index: 1000;
+        }
+        .carrito-titulo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .carrito-items {
+            min-height: 50px;
+            margin-bottom: 15px;
+        }
+        .carrito-total {
+            font-weight: bold;
+            text-align: right;
+            margin-bottom: 15px;
+        }
+        .carrito-boton {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #2ecc71;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            nav ul {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                margin-top: 15px;
+            }
+            nav ul.show {
+                display: flex;
+            }
+            nav ul li {
+                margin: 10px 0;
+            }
+            .productos {
+                grid-template-columns: 1fr;
+            }
+            .combo-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="menu-toggle">☰</div>
+        <div class="logo">Subly+ Marketplace</div>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#entretenimiento">Entretenimiento</a></li>
+                <li><a href="#musica">Música</a></li>
+                <li><a href="#ia">Inteligencia Artificial</a></li>
+                <li><a href="#combos">Combos</a></li>
+            </ul>
+        </nav>
+        <a href="#" class="carrito">0</a>
+    </header>
+
+    <div class="banner">
+        <p>Espacio reservado para Banner / GIF</p>
+    </div>
+
+    <div class="categorias">
+        <a href="#">HOME / CATÁLOGO SUBLY+</a>
+    </div>
+
+    <div class="filtro">
+        <span>Mostrar: Todos</span> | 
+        <span>Mostrar: Streaming</span> | 
+        <span>Mostrar: Música</span> | 
+        <span>Mostrar: IA</span> | 
+        <span>Mostrar: Combos</span>
+    </div>
+
+    <section id="entretenimiento" class="seccion">
+        <h2 class="seccion-titulo">🎬 ENTRETENIMIENTO</h2>
+        <div class="productos">
+            <div class="producto">
+                <img src="APPLETVMLB-X1MES-T-2-600x600.png" alt="Apple TV+ + MLB: Pantalla" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Apple TV+ + MLB: Pantalla</div>
+                    <div class="producto-descripcion">Acceso a 1 Pantalla de Apple TV+ con contenido MLB.</div>
+                    <a href="https://wa.me/573223353049?text=Quiero%20comprar:%20Apple%20TV%2B%20%2B%20MLB:%20Pantalla" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_5_Diseno-sin-titulo-1.png" alt="Apple TV+: Pantalla" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Apple TV+: Pantalla</div>
+                    <div class="producto-descripcion">Acceso a 1 Pantalla de Apple TV+.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Apple%20TV%2B:%20Pantalla" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_5_Diseno-sin-titulo-1.png" alt="Apple TV+: Completa" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Apple TV+: Completa</div>
+                    <div class="producto-descripcion">Cuenta completa de Apple TV+.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Apple%20TV%2B:%20Completa" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_5_PARAMOUNT.png" alt="Paramount+: Pantalla" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Paramount+: Pantalla</div>
+                    <div class="producto-descripcion">Acceso a 1 Pantalla de Paramount+.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Paramount%2B:%20Pantalla" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="Generated Image November 08, 2025 - 9_31PM.png" alt="Paramount+: Completa" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Paramount+: Completa</div>
+                    <div class="producto-descripcion">Cuenta completa de Paramount+.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Paramount%2B:%20Completa" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_5_PARAMOUNT.png" alt="Paramount+: Original Pantalla" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Paramount+: Original Pantalla</div>
+                    <div class="producto-descripcion">Pantalla original de Paramount+.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Paramount%2B:%20Original%20Pantalla" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_3_PARAMOUNT1.png" alt="Paramount+: Original Completa" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Paramount+: Original Completa</div>
+                    <div class="producto-descripcion">Cuenta completa original de Paramount+.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Paramount%2B:%20Original%20Completa" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_5_CRUNCHYROLL.png" alt="Crunchyroll: Pantalla" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Crunchyroll: Pantalla</div>
+                    <div class="producto-descripcion">Acceso a una Pantalla de Crunchyroll.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Crunchyroll:%20Pantalla" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_3_crunchyroll-ORIGINAK.png" alt="Crunchyroll: Completa" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Crunchyroll: Completa</div>
+                    <div class="producto-descripcion">Cuenta completa de Crunchyroll.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Crunchyroll:%20Completa" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_5_CRUNCHYROLL.png" alt="Crunchyroll: Original Pantalla" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Crunchyroll: Original Pantalla</div>
+                    <div class="producto-descripcion">Pantalla original de Crunchyroll.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Crunchyroll:%20Original%20Pantalla" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_3_crunchyroll-ORIGINAK.png" alt="Crunchyroll: Original Completa" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Crunchyroll: Original Completa</div>
+                    <div class="producto-descripcion">Cuenta completa original de Crunchyroll.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Crunchyroll:%20Original%20Completa" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_6_ChatGPT-Image-25-jul-2025-22_23_12.png" alt="Disney+: Pantalla Original Estándar" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Disney+: Pantalla Original Estándar</div>
+                    <div class="producto-descripcion">Pantalla estándar (Original) de Disney+.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Disney%2B:%20Pantalla%20Original%20Est%C3%A1ndar" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_6_ChatGPT-Image-25-jul-2025-22_23_12.png" alt="Disney+: Completa Original Estándar" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Disney+: Completa Original Estándar</div>
+                    <div class="producto-descripcion">Cuenta completa estándar (Original) de Disney+.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Disney%2B:%20Completa%20Original%20Est%C3%A1ndar" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_6_ChatGPT-Image-25-jul-2025-22_23_12.png" alt="Disney+: Pantalla Premium Genérica" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Disney+: Pantalla Premium Genérica</div>
+                    <div class="producto-descripcion">Pantalla Premium (Genérica) de Disney+.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Disney%2B:%20Pantalla%20Premium%20Gen%C3%A9rica" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_5_28544d0b-3637-43f5-a346-487c2ebdcc15.jpg" alt="Disney+: Completa Premium Genérica" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Disney+: Completa Premium Genérica</div>
+                    <div class="producto-descripcion">Cuenta completa Premium (Genérica) de Disney+.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Disney%2B:%20Completa%20Premium%20Gen%C3%A9rica" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_6_ChatGPT-Image-25-jul-2025-22_23_12.png" alt="Disney+: Pantalla Premium Original" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Disney+: Pantalla Premium Original</div>
+                    <div class="producto-descripcion">Pantalla Premium (Original) de Disney+.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Disney%2B:%20Pantalla%20Premium%20Original" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_5_28544d0b-3637-43f5-a346-487c2ebdcc15.jpg" alt="Disney+: Completa Premium Original" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Disney+: Completa Premium Original</div>
+                    <div class="producto-descripcion">Cuenta completa Premium (Original) de Disney+.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Disney%2B:%20Completa%20Premium%20Original" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="musica" class="seccion">
+        <h2 class="seccion-titulo">🎵 MÚSICA</h2>
+        <div class="productos">
+            <div class="producto">
+                <img src="imgi_6_b93f018b-0bca-4bd5-a4b1-059c44a63fbe.jpg" alt="YouTube Premium: 1 Mes" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">YouTube Premium: 1 Mes</div>
+                    <div class="producto-descripcion">Acceso a YouTube Premium.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20YouTube%20Premium:%201%20Mes" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_3_YTPREMIUM-X2MESES-T.png" alt="YouTube Premium: 2 Meses" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">YouTube Premium: 2 Meses</div>
+                    <div class="producto-descripcion">Acceso a YouTube Premium.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20YouTube%20Premium:%202%20Meses" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_5_43a1875e-5493-4c71-a892-7895fb0f9a47-1.jpg" alt="YouTube Premium: 3 Meses" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">YouTube Premium: 3 Meses</div>
+                    <div class="producto-descripcion">Acceso a YouTube Premium.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20YouTube%20Premium:%203%20Meses" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_4_DEEZER-.png" alt="Deezer Premium: 1 Mes" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Deezer Premium: 1 Mes</div>
+                    <div class="producto-descripcion">Acceso a Deezer Premium.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Deezer%20Premium:%201%20Mes" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_6_e611bf28-85e9-4189-b78d-57a0e330f3b8.jpg" alt="Spotify: 1 Mes" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Spotify: 1 Mes</div>
+                    <div class="producto-descripcion">Acceso a Spotify Premium.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Spotify:%201%20Mes" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_3_SPOTIFY.png" alt="Spotify: 2 Meses" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Spotify: 2 Meses</div>
+                    <div class="producto-descripcion">Acceso a Spotify Premium.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Spotify:%202%20Meses" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_5_SPOTIFY-PREMIUM.png" alt="Spotify: 3 Meses" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Spotify: 3 Meses</div>
+                    <div class="producto-descripcion">Acceso a Spotify Premium.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Spotify:%203%20Meses" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_7_WhatsApp-Image-2025-02-09-at-9.14.38-PM.jpg" alt="Apple Music: 1 Mes (Android)" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Apple Music: 1 Mes (Android)</div>
+                    <div class="producto-descripcion">Membresía Apple Music (solo para Android).</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Apple%20Music:%201%20Mes%20(Android)" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ia" class="seccion">
+        <h2 class="seccion-titulo">🤖 INTELIGENCIA ARTIFICIAL</h2>
+        <div class="productos">
+            <div class="producto">
+                <img src="imgi_3_7986.png" alt="ChatGPT Plus: 1 Mes" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">ChatGPT Plus: 1 Mes</div>
+                    <div class="producto-descripcion">Acceso a la suscripción ChatGPT Plus.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20ChatGPT%20Plus:%201%20Mes" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+            <div class="producto">
+                <img src="imgi_15_7t89895g-367x367.png" alt="Gemini (Google AI): 1 Mes" class="producto-imagen">
+                <div class="producto-info">
+                    <div class="producto-titulo">Gemini (Google AI): 1 Mes</div>
+                    <div class="producto-descripcion">Acceso a la suite de Inteligencia Artificial de Google.</div>
+                    <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20Gemini%20(Google%20AI):%201%20Mes" class="boton-comprar" target="_blank">Comprar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="combos" class="seccion">
+        <h2 class="seccion-titulo">🎁 COMBOS SUPER MAX</h2>
+        <p style="text-align: center; margin-bottom: 20px;">(Disponibles hasta el 24 de octubre)</p>
+        <div class="combo-container">
+            <div class="combo-item">
+                <img src="      https://img.icons8.com/?size=512&id=vGz4vWlU0iNq&format=png" alt="Combo" class="combo-imagen">
+                <div class="combo-titulo">COMBO 🔥</div>
+                <div class="combo-descripcion">HBO Max + Paramount</div>
+                <div class="combo-info">Acceso a ambas plataformas por un precio especial.</div>
+                <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20HBO%20Max%20%2B%20Paramount" class="boton-comprar" target="_blank">Comprar</a>
+            </div>
+            <div class="combo-item">
+                <img src="      https://img.icons8.com/?size=512&id=107384&format=png" alt="Combo" class="combo-imagen">
+                <div class="combo-titulo">COMBO 🔥</div>
+                <div class="combo-descripcion">HBO Max + Prime</div>
+                <div class="combo-info">Acceso a HBO Max y Amazon Prime Video.</div>
+                <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20HBO%20Max%20%2B%20Prime" class="boton-comprar" target="_blank">Comprar</a>
+            </div>
+            <div class="combo-item">
+                <img src="      https://img.icons8.com/?size=512&id=vGz4vWlU0iNq&format=png" alt="Combo" class="combo-imagen">
+                <div class="combo-titulo">COMBO 🔥</div>
+                <div class="combo-descripcion">HBO Max + Disney+</div>
+                <div class="combo-info">Disfruta de la mejor programación de HBO y Disney.</div>
+                <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20HBO%20Max%20%2B%20Disney%2B" class="boton-comprar" target="_blank">Comprar</a>
+            </div>
+            <div class="combo-item">
+                <img src="      https://img.icons8.com/?size=512&id=vGz4vWlU0iNq&format=png" alt="Combo" class="combo-imagen">
+                <div class="combo-titulo">COMBO 🔥</div>
+                <div class="combo-descripcion">HBO Max + Universal+</div>
+                <div class="combo-info">Acceso a HBO Max y el contenido de Universal+.</div>
+                <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20HBO%20Max%20%2B%20Universal%2B" class="boton-comprar" target="_blank">Comprar</a>
+            </div>
+            <div class="combo-item">
+                <img src="      https://img.icons8.com/?size=512&id=vGz4vWlU0iNq&format=png" alt="Combo" class="combo-imagen">
+                <div class="combo-titulo">COMBO 🔥</div>
+                <div class="combo-descripcion">HBO Max + ViX</div>
+                <div class="combo-info">Acceso a HBO Max y la plataforma de ViX.</div>
+                <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20HBO%20Max%20%2B%20ViX" class="boton-comprar" target="_blank">Comprar</a>
+            </div>
+        </div>
+        
+        <h2 class="seccion-titulo" style="margin-top: 50px;">🎃 COMBOS NETFLIX</h2>
+        <p style="text-align: center; margin-bottom: 20px;">(Acceso general: 1 de noviembre de 2025)<br>✨ Acceso anticipado si sigues @Sublymas.co</p>
+        <div class="combo-container">
+            <div class="combo-item">
+                <img src="      https://img.icons8.com/?size=512&id=107384&format=png" alt="Combo" class="combo-imagen">
+                <div class="combo-titulo">COMBO 🍿</div>
+                <div class="combo-descripcion">Netflix + Crunchyroll</div>
+                <div class="combo-info">El mejor cine y series con el mejor anime.</div>
+                <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20Netflix%20%2B%20Crunchyroll" class="boton-comprar" target="_blank">Comprar</a>
+            </div>
+            <div class="combo-item">
+                <img src="      https://img.icons8.com/?size=512&id=107384&format=png" alt="Combo" class="combo-imagen">
+                <div class="combo-titulo">COMBO 🍿</div>
+                <div class="combo-descripcion">Netflix + Prime Video</div>
+                <div class="combo-info">Doble entretenimiento de las plataformas líderes.</div>
+                <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20Netflix%20%2B%20Prime%20Video" class="boton-comprar" target="_blank">Comprar</a>
+            </div>
+            <div class="combo-item">
+                <img src="      https://img.icons8.com/?size=512&id=107384&format=png" alt="Combo" class="combo-imagen">
+                <div class="combo-titulo">COMBO 🍿</div>
+                <div class="combo-descripcion">Netflix + Disney+</div>
+                <div class="combo-info">Acceso a Netflix y todo el catálogo de Disney.</div>
+                <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20Netflix%20%2B%20Disney%2B" class="boton-comprar" target="_blank">Comprar</a>
+            </div>
+            <div class="combo-item">
+                <img src="      https://img.icons8.com/?size=512&id=107384&format=png" alt="Combo" class="combo-imagen">
+                <div class="combo-titulo">COMBO 🍿</div>
+                <div class="combo-descripcion">Netflix + Max (HBO)</div>
+                <div class="combo-info">Lo mejor del cine y las series originales de HBO.</div>
+                <a href="      https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20Netflix%20%2B%20Max%20(HBO)" class="boton-comprar" target="_blank">Comprar</a>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 30px; font-weight: bold; color: #e74c3c;">
+            Beneficios: sorteos 🎁, descuentos 💸, acceso anticipado 🚀 y precios exclusivos 🔥
+        </p>
+    </section>
+
+    <div class="carrito-modal">
+        <div class="carrito-titulo">
+            <h3>🛒 Tu Carrito</h3>
+            <span>×</span>
+        </div>
+        <div class="carrito-items">
+            <p>Tu carrito está vacío.</p>
+        </div>
+        <div class="carrito-total">
+            Total: $0
+        </div>
+        <a href="      https://wa.me/573223353049?text=Quiero%20finalizar%20mi%20compra" class="carrito-boton" target="_blank">Finalizar Compra por WhatsApp</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Subly+ Marketplace. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('show');
+        });
+        
+        document.querySelector('.carrito-titulo span').addEventListener('click', function() {
+            document.querySelector('.carrito-modal').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
