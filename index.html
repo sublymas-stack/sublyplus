@@ -773,6 +773,15 @@
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
+
+	.resultado-imagen {
+    		width: 100%;
+    		height: 150px;
+    		object-fit: contain;
+    		margin-bottom: 10px;
+    		padding: 10px;
+    		background-color: transparent;
+		}
         .resultado-titulo {
             font-size: 1.2rem;
             font-weight: bold;
@@ -1993,6 +2002,9 @@
             if (searchTerm === '') {
                 // Limpiar resultados si el campo de búsqueda está vacío
                 document.getElementById('resultados-busqueda').style.display = 'none';
+		document.getElementById('vista-inicio').style.display = 'block';
+		document.getElementById('vista-tienda').style.display = 'none';
+		document.getElementById('vista-soporte').style.display = 'none';
                 return;
             }
             
@@ -2010,61 +2022,245 @@
             
             // Obtener productos de ENTRETENIMIENTO
             const productosEntretenimiento = [
-                { titulo: "Apple TV+ + MLB: Pantalla", descripcion: "Acceso a 1 Pantalla de Apple TV+ con contenido MLB.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Apple%20TV%2B%20%2B%20MLB:%20Pantalla" },
-                { titulo: "Apple TV+: Pantalla", descripcion: "Acceso a 1 Pantalla de Apple TV+.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Apple%20TV%2B:%20Pantalla" },
-                { titulo: "Apple TV+: Completa", descripcion: "Cuenta completa de Apple TV+.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Apple%20TV%2B:%20Completa" },
-                { titulo: "Paramount+: Pantalla", descripcion: "Acceso a 1 Pantalla de Paramount+.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Paramount%2B:%20Pantalla" },
-                { titulo: "Paramount+: Completa", descripcion: "Cuenta completa de Paramount+.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Paramount%2B:%20Completa" },
-                { titulo: "Paramount+: Original Pantalla", descripcion: "Pantalla original de Paramount+.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Paramount%2B:%20Original%20Pantalla" },
-                { titulo: "Paramount+: Original Completa", descripcion: "Cuenta completa original de Paramount+.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Paramount%2B:%20Original%20Completa" },
-                { titulo: "Crunchyroll: Pantalla", descripcion: "Acceso a una Pantalla de Crunchyroll.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Crunchyroll:%20Pantalla" },
-                { titulo: "Crunchyroll: Completa", descripcion: "Cuenta completa de Crunchyroll.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Crunchyroll:%20Completa" },
-                { titulo: "Crunchyroll: Original Pantalla", descripcion: "Pantalla original de Crunchyroll.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Crunchyroll:%20Original%20Pantalla" },
-                { titulo: "Crunchyroll: Original Completa", descripcion: "Cuenta completa original de Crunchyroll.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Crunchyroll:%20Original%20Completa" },
-                { titulo: "Disney+: Pantalla Original Estándar", descripcion: "Pantalla estándar (Original) de Disney+.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Disney%2B:%20Pantalla%20Original%20Est%C3%A1ndar" },
-                { titulo: "Disney+: Completa Original Estándar", descripcion: "Cuenta completa estándar (Original) de Disney+.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Disney%2B:%20Completa%20Original%20Est%C3%A1ndar" },
-                { titulo: "Disney+: Pantalla Premium Genérica", descripcion: "Pantalla Premium (Genérica) de Disney+.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Disney%2B:%20Pantalla%20Premium%20Gen%C3%A9rica" },
-                { titulo: "Disney+: Completa Premium Genérica", descripcion: "Cuenta completa Premium (Genérica) de Disney+.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Disney%2B:%20Completa%20Premium%20Gen%C3%A9rica" },
-                { titulo: "Disney+: Pantalla Premium Original", descripcion: "Pantalla Premium (Original) de Disney+.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Disney%2B:%20Pantalla%20Premium%20Original" },
-                { titulo: "Disney+: Completa Premium Original", descripcion: "Cuenta completa Premium (Original) de Disney+.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Disney%2B:%20Completa%20Premium%20Original" }
-            ];
+                 { 
+            titulo: "Apple TV+ + MLB: Pantalla", 
+            descripcion: "Acceso a 1 Pantalla de Apple TV+ con contenido MLB.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Apple%20TV%2B%20%2B%20MLB:%20Pantalla",
+            imagen: "APPLETVMLB-X1MES-T-2-600x600.png"
+        },
+        { 
+            titulo: "Apple TV+: Pantalla", 
+            descripcion: "Acceso a 1 Pantalla de Apple TV+.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Apple%20TV%2B:%20Pantalla",
+            imagen: "imgi_5_Diseno-sin-titulo-1.png"
+        },
+        { 
+            titulo: "Apple TV+: Completa", 
+            descripcion: "Cuenta completa de Apple TV+.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Apple%20TV%2B:%20Completa",
+            imagen: "APPLECOMPLETA.png"
+        },
+        { 
+            titulo: "Paramount+: Pantalla", 
+            descripcion: "Acceso a 1 Pantalla de Paramount+.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Paramount%2B:%20Pantalla",
+            imagen: "paramountpantalla.png"
+        },
+        { 
+            titulo: "Paramount+: Completa", 
+            descripcion: "Cuenta completa de Paramount+.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Paramount%2B:%20Completa",
+            imagen: "Generated Image November 08, 2025 - 9_31PM.png"
+        },
+        { 
+            titulo: "Paramount+: Original Pantalla", 
+            descripcion: "Pantalla original de Paramount+.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Paramount%2B:%20Original%20Pantalla",
+            imagen: "paramountpantallaorginal.png"
+        },
+        { 
+            titulo: "Paramount+: Original Completa", 
+            descripcion: "Cuenta completa original de Paramount+.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Paramount%2B:%20Original%20Completa",
+            imagen: "Generated Image November 08, 2025 - 9_48PM.png"
+        },
+        { 
+            titulo: "Crunchyroll: Pantalla", 
+            descripcion: "Acceso a una Pantalla de Crunchyroll.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Crunchyroll:%20Pantalla",
+            imagen: "crunchypantalla.png"
+        },
+        { 
+            titulo: "Crunchyroll: Completa", 
+            descripcion: "Cuenta completa de Crunchyroll.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Crunchyroll:%20Completa",
+            imagen: "Completacrunchy.png"
+        },
+        { 
+            titulo: "Crunchyroll: Original Pantalla", 
+            descripcion: "Pantalla original de Crunchyroll.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Crunchyroll:%20Original%20Pantalla",
+            imagen: "crunchyorigi.png"
+        },
+        { 
+            titulo: "Crunchyroll: Original Completa", 
+            descripcion: "Cuenta completa original de Crunchyroll.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Crunchyroll:%20Original%20Completa",
+            imagen: "imgi_3_crunchyroll-ORIGINAK.png"
+        },
+        { 
+            titulo: "Disney+: Pantalla Original Estándar", 
+            descripcion: "Pantalla estándar (Original) de Disney+.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Disney%2B:%20Pantalla%20Original%20Est%C3%A1ndar",
+            imagen: "disneypantallaori.png"
+        },
+        { 
+            titulo: "Disney+: Completa Original Estándar", 
+            descripcion: "Cuenta completa estándar (Original) de Disney+.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Disney%2B:%20Completa%20Original%20Est%C3%A1ndar",
+            imagen: "completastandisney.png"
+        },
+        { 
+            titulo: "Disney+: Pantalla Premium Genérica", 
+            descripcion: "Pantalla Premium (Genérica) de Disney+.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Disney%2B:%20Pantalla%20Premium%20Gen%C3%A9rica",
+            imagen: "disneypantaorigina.png"
+        },
+        { 
+            titulo: "Disney+: Completa Premium Genérica", 
+            descripcion: "Cuenta completa Premium (Genérica) de Disney+.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Disney%2B:%20Completa%20Premium%20Gen%C3%A9rica",
+            imagen: "completagenerica.png"
+        },
+        { 
+            titulo: "Disney+: Pantalla Premium Original", 
+            descripcion: "Pantalla Premium (Original) de Disney+.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Disney%2B:%20Pantalla%20Premium%20Original",
+            imagen: "premiumoriginaldisney.png"
+        },
+        { 
+            titulo: "Disney+: Completa Premium Original", 
+            descripcion: "Cuenta completa Premium (Original) de Disney+.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Disney%2B:%20Completa%20Premium%20Original",
+            imagen: "originalpremiumcompletadisney.png"
+        }
+    ];
+
             
             // Obtener productos de MÚSICA
             const productosMusica = [
-                { titulo: "YouTube Premium: 1 Mes", descripcion: "Acceso a YouTube Premium.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20YouTube%20Premium:%201%20Mes" },
-                { titulo: "YouTube Premium: 2 Meses", descripcion: "Acceso a YouTube Premium.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20YouTube%20Premium:%202%20Meses" },
-                { titulo: "YouTube Premium: 3 Meses", descripcion: "Acceso a YouTube Premium.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20YouTube%20Premium:%203%20Meses" },
-                { titulo: "Deezer Premium: 1 Mes", descripcion: "Acceso a Deezer Premium.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Deezer%20Premium:%201%20Mes" },
-                { titulo: "Spotify: 1 Mes", descripcion: "Acceso a Spotify Premium.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Spotify:%201%20Mes" },
-                { titulo: "Spotify: 2 Meses", descripcion: "Acceso a Spotify Premium.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Spotify:%202%20Meses" },
-                { titulo: "Spotify: 3 Meses", descripcion: "Acceso a Spotify Premium.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Spotify:%203%20Meses" },
-                { titulo: "Apple Music: 1 Mes (Android)", descripcion: "Membresía Apple Music (solo para Android).", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Apple%20Music:%201%20Mes%20(Android)" }
-            ];
+             { 
+            titulo: "YouTube Premium: 1 Mes", 
+            descripcion: "Acceso a YouTube Premium.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20YouTube%20Premium:%201%20Mes",
+            imagen: "youtubex1.png"
+        },
+        { 
+            titulo: "YouTube Premium: 2 Meses", 
+            descripcion: "Acceso a YouTube Premium.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20YouTube%20Premium:%202%20Meses",
+            imagen: "youtubex2.png"
+        },
+        { 
+            titulo: "YouTube Premium: 3 Meses", 
+            descripcion: "Acceso a YouTube Premium.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20YouTube%20Premium:%203%20Meses",
+            imagen: "youtubex3.png"
+        },
+        { 
+            titulo: "Deezer Premium: 1 Mes", 
+            descripcion: "Acceso a Deezer Premium.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Deezer%20Premium:%201%20Mes",
+            imagen: "deezer.png"
+        },
+        { 
+            titulo: "Spotify: 1 Mes", 
+            descripcion: "Acceso a Spotify Premium.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Spotify:%201%20Mes",
+            imagen: "spotifyx1.png"
+        },
+        { 
+            titulo: "Spotify: 2 Meses", 
+            descripcion: "Acceso a Spotify Premium.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Spotify:%202%20Meses",
+            imagen: "spotifyx2.png"
+        },
+        { 
+            titulo: "Spotify: 3 Meses", 
+            descripcion: "Acceso a Spotify Premium.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Spotify:%203%20Meses",
+            imagen: "soptifyx3.png"
+        },
+        { 
+            titulo: "Apple Music: 1 Mes (Android)", 
+            descripcion: "Membresía Apple Music (solo para Android).", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Apple%20Music:%201%20Mes%20(Android)",
+            imagen: "imgi_7_WhatsApp-Image-2025-02-09-at-9.14.38-PM.jpg"
+        }
+    ];
+
             
             // Obtener productos de INTELIGENCIA ARTIFICIAL
             const productosIA = [
-                { titulo: "ChatGPT Plus: 1 Mes", descripcion: "Acceso a la suscripción ChatGPT Plus.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20ChatGPT%20Plus:%201%20Mes" },
-                { titulo: "Gemini (Google AI): 1 Mes", descripcion: "Acceso a la suite de Inteligencia Artificial de Google.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Gemini%20(Google%20AI):%201%20Mes" }
-            ];
+                { 
+            titulo: "ChatGPT Plus: 1 Mes", 
+            descripcion: "Acceso a la suscripción ChatGPT Plus.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20ChatGPT%20Plus:%201%20Mes",
+            imagen: "imgi_3_7986.png"
+        },
+        { 
+            titulo: "Gemini (Google AI): 1 Mes", 
+            descripcion: "Acceso a la suite de Inteligencia Artificial de Google.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20Gemini%20(Google%20AI):%201%20Mes",
+            imagen: "imgi_15_7t89895g-367x367.png"
+        },
+    ];
+
             
             // Obtener combos
             const productosCombos = [
-                { titulo: "COMBO HBO Max + Paramount", descripcion: "Acceso a ambas plataformas por un precio especial.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20HBO%20Max%20%2B%20Paramount" },
-                { titulo: "COMBO HBO Max + Prime", descripcion: "Acceso a HBO Max y Amazon Prime Video.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20HBO%20Max%20%2B%20Prime" },
-                { titulo: "COMBO HBO Max + Disney+", descripcion: "Disfruta de la mejor programación de HBO y Disney.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20HBO%20Max%20%2B%20Disney%2B" },
-                { titulo: "COMBO HBO Max + Universal+", descripcion: "Acceso a HBO Max y el contenido de Universal+.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20HBO%20Max%20%2B%20Universal%2B" },
-                { titulo: "COMBO HBO Max + ViX", descripcion: "Acceso a HBO Max y la plataforma de ViX.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20HBO%20Max%20%2B%20ViX" },
-                { titulo: "COMBO Netflix + Crunchyroll", descripcion: "El mejor cine y series con el mejor anime.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20Netflix%20%2B%20Crunchyroll" },
-                { titulo: "COMBO Netflix + Prime Video", descripcion: "Doble entretenimiento de las plataformas líderes.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20Netflix%20%2B%20Prime%20Video" },
-                { titulo: "COMBO Netflix + Disney+", descripcion: "Acceso a Netflix y todo el catálogo de Disney.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20Netflix%20%2B%20Disney%2B" },
-                { titulo: "COMBO Netflix + Max (HBO)", descripcion: "Lo mejor del cine y las series originales de HBO.", url: "https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20Netflix%20%2B%20Max%20(HBO)" }
-            ];
+               { 
+            titulo: "COMBO HBO Max + Paramount", 
+            descripcion: "Acceso a ambas plataformas por un precio especial.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20HBO%20Max%20%2B%20Paramount",
+            imagen: "hbopara.png"
+        },
+        { 
+            titulo: "COMBO HBO Max + Prime", 
+            descripcion: "Acceso a HBO Max y Amazon Prime Video.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20HBO%20Max%20%2B%20Prime",
+            imagen: "hboprime.png"
+        },
+        { 
+            titulo: "COMBO HBO Max + Disney+",
+            descripcion: "Disfruta de la mejor programación de HBO y Disney.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20HBO%20Max%20%2B%20Disney%2B",
+            imagen: "hbodis.png"
+        },
+        { 
+            titulo: "COMBO HBO Max + Universal+", 
+            descripcion: "Acceso a HBO Max y el contenido de Universal+.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20HBO%20Max%20%2B%20Universal%2B",
+            imagen: "hbouniversal.png"
+        },
+        { 
+            titulo: "COMBO HBO Max + ViX", 
+            descripcion: "Acceso a HBO Max y la plataforma de ViX.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20HBO%20Max%20%2B%20ViX",
+            imagen: "hbovix.png"
+        },
+        { 
+            titulo: "COMBO Netflix + Crunchyroll", 
+            descripcion: "El mejor cine y series con el mejor anime.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20Netflix%20%2B%20Crunchyroll",
+            imagen: "netflixcrunchy.png"
+        },
+        { 
+            titulo: "COMBO Netflix + Prime Video", 
+            descripcion: "Doble entretenimiento de las plataformas líderes.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20Netflix%20%2B%20Prime%20Video",
+            imagen: "netflixprime.png"
+        },
+        { 
+            titulo: "COMBO Netflix + Disney+", 
+            descripcion: "Acceso a Netflix y todo el catálogo de Disney.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20Netflix%20%2B%20Disney%2B",
+            imagen: "netflixdisney.png"
+        },
+        { 
+            titulo: "COMBO Netflix + Max (HBO)", 
+            descripcion: "Lo mejor del cine y las series originales de HBO.", 
+            url: "https://wa.me/573223353049?text=Quiero%20comprar:%20COMBO%20Netflix%20%2B%20Max%20(HBO)",
+            imagen: "netflixhbo.png"
+        }
+    ];
+
             
             // Combinar todos los productos
             todosLosProductos.push(...productosEntretenimiento.map(p => ({ ...p, categoria: "🎬 ENTRETENIMIENTO" })));
             todosLosProductos.push(...productosMusica.map(p => ({ ...p, categoria: "🎵 MÚSICA" })));
             todosLosProductos.push(...productosIA.map(p => ({ ...p, categoria: "🤖 INTELIGENCIA ARTIFICIAL" })));
-            todosLosProductos.push(...productosCombos.map(p => ({ ...p, categoria: "🎁 COMBOS SUPER MAX" })));
+            todosLosProductos.push(...productosCombos.map(p => ({ ...p, categoria: "🎁 COMBOS SUPER" })));
             
             // Filtrar productos que coincidan con el término de búsqueda
             const resultados = todosLosProductos.filter(producto => 
@@ -2074,21 +2270,22 @@
             );
             
             // Mostrar resultados
-            if (resultados.length === 0) {
-                resultadosContainer.innerHTML = '<div class="no-resultados">No se encontraron resultados para tu búsqueda. Intenta con términos diferentes.</div>';
-            } else {
-                resultados.forEach(resultado => {
-                    const resultadoElement = document.createElement('div');
-                    resultadoElement.className = 'resultado-busqueda';
-                    resultadoElement.innerHTML = `
-                        <div class="resultado-categoria">${resultado.categoria}</div>
-                        <h3 class="resultado-titulo">${resultado.titulo}</h3>
-                        <p class="resultado-descripcion">${resultado.descripcion}</p>
-                        <a href="${resultado.url}" class="resultado-enlace" target="_blank">Comprar</a>
-                    `;
-                    resultadosContainer.appendChild(resultadoElement);
-                });
-            }
+        if (resultados.length === 0) {
+    resultadosContainer.innerHTML = '<div class="no-resultados">No se encontraron resultados para tu búsqueda. Intenta con términos diferentes.</div>';
+} else {
+    resultados.forEach(resultado => {
+        const resultadoElement = document.createElement('div');
+        resultadoElement.className = 'resultado-busqueda';
+        resultadoElement.innerHTML = `
+            <div class="resultado-categoria">${resultado.categoria}</div>
+            <img src="${resultado.imagen}" alt="${resultado.titulo}" class="resultado-imagen">
+            <h3 class="resultado-titulo">${resultado.titulo}</h3>
+            <p class="resultado-descripcion">${resultado.descripcion}</p>
+            <a href="${resultado.url}" class="resultado-enlace" target="_blank">Comprar</a>
+        `;
+        resultadosContainer.appendChild(resultadoElement);
+    });
+}
             
             // Mostrar el contenedor de resultados
             document.getElementById('resultados-busqueda').style.display = 'block';
