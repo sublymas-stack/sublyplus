@@ -774,6 +774,13 @@
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
 
+		.resultado-categoria {
+    		font-size: 0.9rem;
+    		color: #3498db;
+    		font-weight: bold;
+    		margin-bottom: 5px;
+		}
+
 	.resultado-imagen {
     		width: 100%;
     		height: 150px;
@@ -811,6 +818,12 @@
             color: #7f8c8d;
             font-size: 1.2rem;
         }
+#resultados-busqueda {
+    display: none;
+    margin: 40px 0;
+    padding: 0 20px;
+}
+
         
 	
 .combo-container {
@@ -1996,29 +2009,46 @@
         });
         
         // Funcionalidad del buscador global
-        document.getElementById('buscador-global').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase().trim();
-            
-            if (searchTerm === '') {
-                // Limpiar resultados si el campo de búsqueda está vacío
-                document.getElementById('resultados-busqueda').style.display = 'none';
-		document.getElementById('vista-inicio').style.display = 'block';
-		document.getElementById('vista-tienda').style.display = 'none';
-		document.getElementById('vista-soporte').style.display = 'none';
-                return;
-            }
-            
-            // Ocultar las vistas actuales
-            document.getElementById('vista-inicio').style.display = 'none';
-            document.getElementById('vista-tienda').style.display = 'none';
-            document.getElementById('vista-soporte').style.display = 'none';
-            
-            // Mostrar los resultados de búsqueda
-            const resultadosContainer = document.getElementById('contenedor-resultados');
-            resultadosContainer.innerHTML = '';
-            
-            // Recopilar todos los productos de todas las categorías
-            const todosLosProductos = [];
+document.getElementById('buscador-global').addEventListener('input', function(e) {
+    const searchTerm = e.target.value.toLowerCase().trim();
+    
+    if (searchTerm === '') {
+        // LIMPIAR RESULTADOS Y VOLVER A LA VISTA ANTERIOR AL BORRAR BÚSQUEDA
+        document.getElementById('resultados-busqueda').style.display = 'none';
+        
+        // Determinar qué vista estaba visible antes de la búsqueda
+        let vistaAnterior = 'inicio'; // Valor por defecto
+        
+        if (document.getElementById('vista-inicio').style.display === 'block') {
+            vistaAnterior = 'inicio';
+        } else if (document.getElementById('vista-tienda').style.display === 'block') {
+            vistaAnterior = 'tienda';
+        } else if (document.getElementById('vista-soporte').style.display === 'block') {
+            vistaAnterior = 'soporte';
+        }
+        
+        // Ocultar todas las vistas
+        document.getElementById('vista-inicio').style.display = 'none';
+        document.getElementById('vista-tienda').style.display = 'none';
+        document.getElementById('vista-soporte').style.display = 'none';
+        
+        // Mostrar la vista que estaba activa antes de la búsqueda
+        document.getElementById(`vista-${vistaAnterior}`).style.display = 'block';
+        return;
+    }
+    
+    // Ocultar las vistas actuales
+    document.getElementById('vista-inicio').style.display = 'none';
+    document.getElementById('vista-tienda').style.display = 'none';
+    document.getElementById('vista-soporte').style.display = 'none';
+    
+    // Mostrar los resultados de búsqueda
+    const resultadosContainer = document.getElementById('contenedor-resultados');
+    resultadosContainer.innerHTML = '';
+    
+    // Recopilar todos los productos de todas las categorías
+    const todosLosProductos = [];
+
             
             // Obtener productos de ENTRETENIMIENTO
             const productosEntretenimiento = [
